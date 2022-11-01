@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Instagram from '../components/Instagram'
 import Slider from '../components/Slider'
@@ -20,6 +21,7 @@ export default function Home() {
 
       <Slider slides={SliderData} />
       <Instagram />
+      <Footer />
     </div>
   )
 }
