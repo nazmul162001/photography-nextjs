@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
 
 const Navbar = () => {
@@ -11,13 +11,27 @@ const Navbar = () => {
     setNav(!nav)
   }
 
+  useEffect(()=> {
+    const changeColor = () => {
+        if(window.scrollY >= 90) {
+            setColor('#ffffff')
+            setTextColor('#000000')
+        } else{
+            setColor('transparent')
+            setTextColor('#ffffff')
+        }
+    }
+    window.addEventListener('scroll', changeColor)
+  },[])
+  
+
   return (
-    <div className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+    <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
       <div className='max-w-[1240px] m-auto flex justify-between items-center p-4 text-white'>
         <Link href='/'>
-          <h2 className='font-bold text-4xl'>Capture</h2>
+          <h1 style={{color: `${textColor}`}} className='font-bold text-4xl'>Capture</h1>
         </Link>
-        <ul className='sm:flex hidden'>
+        <ul style={{color: `${textColor}`}} className='sm:flex hidden'>
           <li className='p-4'>
             <Link href='/'>Home</Link>
           </li>
@@ -33,8 +47,8 @@ const Navbar = () => {
         </ul>
 
         {/* Mobile Button  */}
-        <div className='block sm:hidden z-10'>
-          {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+        <div onClick={handleNav}  className='block sm:hidden z-10 cursor-pointer'>
+          {nav ? <AiOutlineClose size={20} style={{color: `${textColor}`}} /> : <AiOutlineMenu size={20} style={{color: `${textColor}`}} />}
         </div>
 
         {/* Mobile Menu  */}
